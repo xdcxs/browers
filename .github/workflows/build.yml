@@ -22,11 +22,12 @@ jobs:
         distribution: 'temurin'
         cache: gradle
 
-    - name: Grant Execute Permission for Gradle Wrapper
-      run: chmod +x gradlew
+    # Setup a global Gradle runner since your repo is missing the local wrapper files
+    - name: Setup Gradle
+      uses: gradle/actions/setup-gradle@v4
 
     - name: Build Debug APK
-      run: ./gradlew assembleDebug
+      run: gradle assembleDebug
 
     - name: Upload Generated APK Artifact
       uses: actions/upload-artifact@v4
